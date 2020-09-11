@@ -216,6 +216,10 @@ export default Component.extend({
     )
   }),
 
+  didLoad:computed('loaded', function(){
+	return this.get('loaded');
+  }),
+
   // actions:
   actions: {
     load () {
@@ -235,6 +239,7 @@ export default Component.extend({
         history.initialize(pdfDocument.fingerprint)
         this.set('pdfTotalPages', linkService.pagesCount)
         this.set('pdfPage', linkService.page)
+	  	this.set('loaded', true);
         this.sendAction('documentChanged', pdfDocument)
       })
 
@@ -297,8 +302,10 @@ export default Component.extend({
       let pdfViewer = this.get('pdfViewer')
       pdfViewer.getPageView(pdfLinkService.page - 1).div.scrollIntoView()
     },
-    zoom () {
-      throw new Error('not implemented yet')
+    zoom (value) {
+	  let pdfViewer = this.get('pdfViewer');
+	  pdfViewer.currentScaleValue = value;
+	  pdfViewer.update();
     }
   }
 })
