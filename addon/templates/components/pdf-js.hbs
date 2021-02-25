@@ -1,4 +1,4 @@
-
+{{#if didLoad}}
 {{component toolbarComponent
   changePage=(action 'changePage')
   changeSearchResult=(action 'changeSearchResult')
@@ -13,6 +13,7 @@
   matchTotal=matchTotal
   searchResultContexts=searchResultContexts
 }}
+{{/if}}
 <div class="pdfViewerContainer">
   <div class="pdfViewer">
   </div>
