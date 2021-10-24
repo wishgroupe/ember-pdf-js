@@ -22,7 +22,7 @@
     "ember-cli-htmlbars": "^2.0.3",
     "ember-one-way-controls": "^2.0.1",
     "ember-truth-helpers": "^1.3.0",
-    "pdfjs-dist": "git+https://github.com/wishgroupe/pdfjs-dist.git#boondmanager"
+    "pdfjs-dist": "git://github.com/wishgroupe/pdfjs-dist.git#boondmanager"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.6.0",
