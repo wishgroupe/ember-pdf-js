@@ -21,9 +21,7 @@ module.exports = {
     // target.import(`${target.bowerDirectory}/pdfjs-dist/web/pdf_viewer.js`)
     // target.import(`${target.bowerDirectory}/pdfjs-dist/web/pdf_viewer.css`)
     const rs = require.resolve('pdfjs-dist')
-    console.log(rs)
     let pdfjsPath = path.dirname(path.dirname(rs))
-    console.log(pdfjsPath)
     this.pdfjsNode = new UnwatchedDir(pdfjsPath)
     app.import('vendor/pdfjs-dist/build/pdf.js');
     app.import('vendor/pdfjs-dist/build/pdf.worker.js');
