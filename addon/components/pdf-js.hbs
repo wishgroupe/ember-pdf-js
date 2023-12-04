@@ -1,0 +1,17 @@
+<div {{did-insert this.onInsert}} {{did-update this.load @pdf}} class="pdf-js" ...attributes>
+  {{#if this.didLoad}}
+    {{#let (component this.toolbarComponent) as |DynamicToolbar| }}
+      <DynamicToolbar
+        @changePage={{this.changePage}}
+        @zoom={{this.zoom}}
+        @page={{this.pdfPage}}
+        @pageTotal={{this.pdfTotalPages}}
+        class="ember-pdf-js toolbar"
+      />
+    {{/let}}
+  {{/if}}
+  <div class="pdfViewerContainer">
+    <div class="pdfViewer">
+    </div>
+  </div>
+</div>

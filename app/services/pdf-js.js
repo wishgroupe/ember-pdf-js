@@ -1,1 +1,1 @@
-export { default } from 'ember-pdf-js/services/pdf-js'
+export { default } from 'ember-pdf-js/services/pdf-js';

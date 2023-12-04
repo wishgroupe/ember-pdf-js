@@ -1,0 +1,10 @@
+<div>
+  <button type="button" {{on "click" (fn @changePage 'next')}} disabled={{gte @page @pageTotal}}>
+    Next page !
+  </button>
+  <button type="button" {{on "click" (fn @changePage 'prev')}} disabled={{lte @page 1}}>
+    Prev page !
+  </button>
+  <br>
+  <label>page {{@page}} of {{@pageTotal}}</label>
+</div>
