@@ -83,6 +83,13 @@ export default class PdfJs extends Component {
   @action
   load() {
     let uri = this.pdf;
+    if(uri === null || uri === undefined){
+      let viewer = this.pdfViewer;
+      viewer.setDocument();
+      let linkService = this.pdfLinkService;
+      linkService.setDocument();
+      return;
+    }
     let loadingTask = this.pdfLib.getDocument(uri);
     loadingTask.onProgress = (progressData) => {
       this.percentLoaded = (100 * progressData.loaded) / progressData.total;
