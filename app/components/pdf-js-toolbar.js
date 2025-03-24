@@ -1,1 +1,1 @@
-export { default } from 'ember-pdf-js/components/pdf-js-toolbar'
+export { default } from 'ember-pdf-js/components/pdf-js-toolbar';

@@ -1,17 +1,26 @@
-import { moduleForComponent, test } from 'ember-qunit'
-import hbs from 'htmlbars-inline-precompile'
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'dummy/tests/helpers';
+import { render } from '@ember/test-helpers';
+import { hbs } from 'ember-cli-htmlbars';
 
-moduleForComponent('pdf-js-toolbar', 'Integration | Component | pdf js toolbar', {
-  integration: true
-})
+module('Integration | Component | pdf-js-toolbar', function (hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function (assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-  this.set('emptyFn', () => {})
+  test('it renders', async function (assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.set('myAction', function(val) { ... });
 
-  this.render(hbs`{{pdf-js-toolbar changePage=(action emptyFn)}}`)
+    await render(hbs`<PdfJsToolbar />`);
 
-  // check next/prev buttons exist
-  assert.equal(this.$('button').length, 2)
-})
+    assert.dom(this.element).hasText('');
+
+    // Template block usage:
+    await render(hbs`
+      <PdfJsToolbar>
+        template block text
+      </PdfJsToolbar>
+    `);
+
+    assert.dom(this.element).hasText('template block text');
+  });
+});
