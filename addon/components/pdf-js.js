@@ -5,8 +5,9 @@ import { inject as service } from '@ember/service';
 // eslint-disable-next-line ember/no-computed-properties-in-native-classes
 import { reads } from '@ember/object/computed';
 import { run } from '@ember/runloop';
+/* global pdfjsViewer */
 
-const { PDFHistory, PDFLinkService, PDFViewer } = PDFJS;
+const { PDFHistory, PDFLinkService, PDFViewer } = pdfjsViewer;
 
 /**
  * Display PDF and expose basic navigation functionality.
@@ -105,7 +106,7 @@ export default class PdfJs extends Component {
       let linkService = this.pdfLinkService;
       linkService.setDocument(pdfDocument);
       let history = this.pdfHistory;
-      history.initialize(pdfDocument.fingerprint);
+      history.initialize({ fingerprint: pdfDocument.fingerprints[0] });
       this.pdfTotalPages = linkService.pagesCount;
       this.pdfPage = linkService.page;
       this.loaded = true;
