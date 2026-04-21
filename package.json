@@ -31,7 +31,7 @@
   "dependencies": {
     "ember-cli-babel": "^7.26.11",
     "ember-cli-htmlbars": "^6.1.1",
-    "pdfjs-dist": "git://github.com/grunk/pdfjs-dist.git#fix/BM-54027-upgrade-pdfjs"
+    "pdfjs-dist": "git://github.com/wishgroupe/pdfjs-dist.git#fix/BM-54027-upgrade-pdfjs"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
