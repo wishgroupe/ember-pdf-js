@@ -1,15 +1,17 @@
 import Service from '@ember/service';
 import { setOwner } from '@ember/application';
-/* global PDFJS */
+/* global pdfjsLib, pdfjsViewer */
 
 export default class PdfJs extends Service {
   PDFJS;
+  pdfjsViewer;
   constructor(owner) {
     super(...arguments);
     setOwner(this, owner);
     let appConfig = owner.resolveRegistration('config:environment');
     let addonConfig = appConfig.emberPdfJs;
-    this.PDFJS = PDFJS;
-    this.PDFJS.workerSrc = addonConfig.workerSrc;
+    this.PDFJS = pdfjsLib;
+    this.pdfjsViewer = pdfjsViewer;
+    this.PDFJS.GlobalWorkerOptions.workerSrc = addonConfig.workerSrc;
   }
 }

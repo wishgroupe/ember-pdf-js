@@ -5,8 +5,9 @@ import { inject as service } from '@ember/service';
 // eslint-disable-next-line ember/no-computed-properties-in-native-classes
 import { reads } from '@ember/object/computed';
 import { run } from '@ember/runloop';
+/* global pdfjsViewer */
 
-const { PDFHistory, PDFLinkService, PDFViewer } = PDFJS;
+const { EventBus, PDFHistory, PDFLinkService, PDFViewer } = pdfjsViewer;
 
 /**
  * Display PDF and expose basic navigation functionality.
@@ -50,15 +51,19 @@ export default class PdfJs extends Component {
   onInsert(element) {
     let [container] = element.getElementsByClassName('pdfViewerContainer');
     this.#container = container;
-    let pdfLinkService = new PDFLinkService();
+    let eventBus = new EventBus();
+    this.eventBus = eventBus;
+    let pdfLinkService = new PDFLinkService({ eventBus });
     this.pdfLinkService = pdfLinkService;
     let pdfViewer = new PDFViewer({
       container,
+      eventBus,
       linkService: pdfLinkService,
     });
     this.pdfViewer = pdfViewer;
     pdfLinkService.setViewer(pdfViewer);
     let pdfHistory = new PDFHistory({
+      eventBus,
       linkService: pdfLinkService,
     });
     this.pdfHistory = pdfHistory;
@@ -67,7 +72,7 @@ export default class PdfJs extends Component {
     pdfViewer.currentScaleValue = 'page-fit';
 
     // setup the event listening to synchronise with pdf.js' modifications
-    pdfViewer.eventBus.on('pagechange', (evt) => {
+    eventBus.on('pagechanging', (evt) => {
       let page = evt.pageNumber;
       run(() => {
         this.pdfPage = page;
@@ -98,14 +103,14 @@ export default class PdfJs extends Component {
       }
     };
 
-    loadingTask = loadingTask.then((pdfDocument) => {
+    loadingTask = loadingTask.promise.then((pdfDocument) => {
       this.pdfDocument = pdfDocument;
       let viewer = this.pdfViewer;
       viewer.setDocument(pdfDocument);
       let linkService = this.pdfLinkService;
       linkService.setDocument(pdfDocument);
       let history = this.pdfHistory;
-      history.initialize(pdfDocument.fingerprint);
+      history.initialize({ fingerprint: pdfDocument.fingerprints[0] });
       this.pdfTotalPages = linkService.pagesCount;
       this.pdfPage = linkService.page;
       this.loaded = true;

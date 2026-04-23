@@ -24,7 +24,6 @@ module.exports = {
     let pdfjsPath = path.dirname(path.dirname(rs));
     this.pdfjsNode = new UnwatchedDir(pdfjsPath);
     app.import('vendor/pdfjs-dist/build/pdf.js');
-    app.import('vendor/pdfjs-dist/build/pdf.worker.js');
     app.import('vendor/pdfjs-dist/web/pdf_viewer.js');
     app.import('vendor/pdfjs-dist/web/pdf_viewer.css');
   },
